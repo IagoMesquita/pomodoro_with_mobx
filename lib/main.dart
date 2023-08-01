@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_with_mobx/store/counter.store.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:pomodoro_with_mobx/pages/pomodoro.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,42 +16,46 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const Pomodoro(),
     );
   }
 }
 
-final store = CounterStore();
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+// import 'package:pomodoro_with_mobx/store/counter.store.dart';
+// import 'package:flutter_mobx/flutter_mobx.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Contador'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Observer(
-              builder: (_) => Text(
-              '${store.count}',
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            )
+// final store = CounterStore();
+
+// class HomePage extends StatelessWidget {
+//   const HomePage({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         centerTitle: true,
+//         title: const Text('Contador'),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Observer(
+//               builder: (_) => Text(
+//               '${store.count}',
+//               style: Theme.of(context).textTheme.headlineLarge,
+//             ),
+//             )
             
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: store.increment,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
-}
+//           ],
+//         ),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: store.increment,
+//         tooltip: 'Increment',
+//         child: const Icon(Icons.add),
+//       ),
+//     );
+//   }
+// }
