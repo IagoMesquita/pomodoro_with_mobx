@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro_with_mobx/components/chronometer.dart';
 import 'package:pomodoro_with_mobx/components/input_time.dart';
 
 class Pomodoro extends StatelessWidget {
@@ -8,8 +9,9 @@ class Pomodoro extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text('Pomodoro'),
+          const Expanded(child: Chronometer()),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
