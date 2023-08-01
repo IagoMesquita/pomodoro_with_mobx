@@ -12,12 +12,17 @@ class Pomodoro extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Expanded(child: Chronometer()),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const [
-              InputTime(title: 'Trabalho', timer: 25),
-              InputTime(title: 'Descanso', timer: 10),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 40,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: const [
+                InputTime(title: 'Trabalho', timer: 25),
+                InputTime(title: 'Descanso', timer: 10),
+              ],
+            ),
           ),
         ],
       ),
