@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro_with_mobx/components/chronometer_button.dart';
 import 'package:pomodoro_with_mobx/store/pomodoro.store.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class Chronometer extends StatelessWidget {
   const Chronometer({super.key});
@@ -22,7 +23,7 @@ class Chronometer extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-           Text(
+          Text(
             '${store.minutes.toString().padLeft(2, '0')} : ${store.seconds.toString().padLeft(2, '0')}',
             style: const TextStyle(
               fontSize: 120,
@@ -30,22 +31,38 @@ class Chronometer extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Padding(
-                padding: EdgeInsets.only(right: 10),
-                child: ChronometerButton(text: 'Iniciar', icon: Icons.play_arrow),
-              ),
-              // Padding(
-              //   padding: EdgeInsets.only(right: 10),
-              //   child: ChronometerButton(text: 'Parar', icon: Icons.stop),
-              // ),
-              Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: ChronometerButton(text: 'Reiniciar ', icon: Icons.refresh),
-              ),
-            ],
+          Observer(
+            builder: (_) => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (!store.isStarted)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: ChronometerButton(
+                      text: 'Iniciar',
+                      icon: Icons.play_arrow,
+                      click: store.start,
+                    ),
+                  ),
+                if (store.isStarted)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: ChronometerButton(
+                      text: 'Parar',
+                      icon: Icons.stop,
+                      click: store.tostop,
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: ChronometerButton(
+                    text: 'Reiniciar ',
+                    icon: Icons.refresh,
+                    click: store.restart,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
