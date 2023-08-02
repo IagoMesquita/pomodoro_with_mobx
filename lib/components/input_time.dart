@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 class InputTime extends StatelessWidget {
   final String title;
   final int timer;
+  final void Function()? inc;
+  final void Function()? dec;
 
   const InputTime({
     super.key,
     required this.title,
     required this.timer,
+    this.inc,
+    this.dec,
   });
 
   @override
@@ -25,7 +29,7 @@ class InputTime extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: dec,
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(15),
@@ -38,7 +42,7 @@ class InputTime extends StatelessWidget {
             ),
             Text('$timer min '),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: inc,
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(15),
