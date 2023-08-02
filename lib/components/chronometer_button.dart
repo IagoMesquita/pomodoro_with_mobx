@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 class ChronometerButton extends StatelessWidget {
   final String text;
   final IconData icon;
+  final void Function()? click;
+
   const ChronometerButton({
     super.key,
     required this.text,
     required this.icon,
+    this.click
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: click,
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.black,
         padding: const EdgeInsets.symmetric(
