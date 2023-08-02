@@ -6,10 +6,16 @@ class PomodoroStore = _PomodoroStore with _$PomodoroStore;
 
 abstract class _PomodoroStore with Store {
   @observable
-  int workingTime = 2;
+  int minutes = 2;
 
   @observable
-  int restTime = 1;
+  int seconds = 0;
+
+  @observable
+  int workingTime = 10;
+
+  @observable
+  int restTime = 5;
 
   @action
   void incrementWorkingTime() {
