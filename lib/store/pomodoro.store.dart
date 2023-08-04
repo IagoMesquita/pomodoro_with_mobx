@@ -1,13 +1,14 @@
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 
 part 'pomodoro.store.g.dart';
 
 class PomodoroStore = _PomodoroStore with _$PomodoroStore;
 
-enum BreakType {WORK, REST}
+enum BreakType { WORK, REST }
+
 abstract class _PomodoroStore with Store {
-
-
   @observable
   bool isStarted = false;
 
@@ -18,7 +19,7 @@ abstract class _PomodoroStore with Store {
   int seconds = 0;
 
   @observable
-  int workingTime = 10;
+  int workingTime = 1;
 
   @observable
   int restTime = 5;
@@ -26,20 +27,37 @@ abstract class _PomodoroStore with Store {
   @observable
   BreakType breakType = BreakType.REST;
 
+  Timer? chronometer;
+
   @action
   void start() {
+    chronometer = Timer.periodic(const Duration(milliseconds: 50), (timer) { 
+      if(minutes == 0 && seconds == 0) {
+        _changeRangeType();
+      } else if(seconds == 0) {
+        seconds = 59;
+        minutes--;
+      } else {
+        seconds--;
+      }
+    });
     isStarted = true;
   }
 
   @action
   void tostop() {
     isStarted = false;
+    chronometer?.cancel();
   }
 
   @action
-  void restart () {
+  void restart() {
     isStarted = false;
+    tostop();
+    minutes = isWorking() ? workingTime : restTime;
+    seconds = 0;
   }
+
   @action
   void incrementWorkingTime() {
     workingTime++;
@@ -66,5 +84,17 @@ abstract class _PomodoroStore with Store {
 
   bool isResting() {
     return breakType == BreakType.REST;
+  }
+
+  void _changeRangeType() {
+    if (isWorking()) {
+      breakType = BreakType.REST;
+      minutes = restTime;
+    } else {
+      breakType = BreakType.WORK;
+      minutes = workingTime;
+    }
+
+    seconds = 0;
   }
 }
