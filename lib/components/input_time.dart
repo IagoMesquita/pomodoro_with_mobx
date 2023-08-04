@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pomodoro_with_mobx/store/pomodoro.store.dart';
 import 'package:provider/provider.dart';
 
@@ -28,35 +29,37 @@ class InputTime extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: dec,
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(15),
-                backgroundColor: store.isWorking() ? Colors.red : Colors.blue, 
+        Observer(
+          builder: (_) => Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: dec,
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  padding: const EdgeInsets.all(15),
+                  backgroundColor: store.isWorking() ? Colors.red : Colors.blue, 
+                ),
+                child: const Icon(
+                  Icons.arrow_downward,
+                  color: Colors.white,
+                ),
               ),
-              child: const Icon(
-                Icons.arrow_downward,
-                color: Colors.white,
-              ),
-            ),
-            Text('$timer min '),
-            ElevatedButton(
-              onPressed: inc,
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(15),
-                backgroundColor: store.isWorking() ? Colors.red : Colors.blue, 
-              ),
-              child: const Icon(
-                Icons.arrow_upward,
-                color: Colors.white,
-              ),
-            )
-          ],
+              Text('$timer min '),
+              ElevatedButton(
+                onPressed: inc,
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  padding: const EdgeInsets.all(15),
+                  backgroundColor: store.isWorking() ? Colors.red : Colors.blue, 
+                ),
+                child: const Icon(
+                  Icons.arrow_upward,
+                  color: Colors.white,
+                ),
+              )
+            ],
+          ),
         )
       ],
     );
