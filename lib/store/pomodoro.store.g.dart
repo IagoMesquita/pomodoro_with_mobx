@@ -89,6 +89,22 @@ mixin _$PomodoroStore on _PomodoroStore, Store {
     });
   }
 
+  late final _$breakTypeAtom =
+      Atom(name: '_PomodoroStore.breakType', context: context);
+
+  @override
+  BreakType get breakType {
+    _$breakTypeAtom.reportRead();
+    return super.breakType;
+  }
+
+  @override
+  set breakType(BreakType value) {
+    _$breakTypeAtom.reportWrite(value, super.breakType, () {
+      super.breakType = value;
+    });
+  }
+
   late final _$_PomodoroStoreActionController =
       ActionController(name: '_PomodoroStore', context: context);
 
@@ -176,7 +192,8 @@ isStarted: ${isStarted},
 minutes: ${minutes},
 seconds: ${seconds},
 workingTime: ${workingTime},
-restTime: ${restTime}
+restTime: ${restTime},
+breakType: ${breakType}
     ''';
   }
 }

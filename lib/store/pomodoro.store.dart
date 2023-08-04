@@ -4,7 +4,10 @@ part 'pomodoro.store.g.dart';
 
 class PomodoroStore = _PomodoroStore with _$PomodoroStore;
 
+enum BreakType {WORK, REST}
 abstract class _PomodoroStore with Store {
+
+
   @observable
   bool isStarted = false;
 
@@ -19,6 +22,9 @@ abstract class _PomodoroStore with Store {
 
   @observable
   int restTime = 5;
+
+  @observable
+  BreakType breakType = BreakType.REST;
 
   @action
   void start() {
@@ -52,5 +58,13 @@ abstract class _PomodoroStore with Store {
   @action
   void decrementRestTime() {
     restTime--;
+  }
+
+  bool isWorking() {
+    return breakType == BreakType.WORK;
+  }
+
+  bool isResting() {
+    return breakType == BreakType.REST;
   }
 }
