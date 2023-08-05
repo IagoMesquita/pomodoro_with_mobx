@@ -31,10 +31,10 @@ abstract class _PomodoroStore with Store {
 
   @action
   void start() {
-    chronometer = Timer.periodic(const Duration(milliseconds: 50), (timer) { 
-      if(minutes == 0 && seconds == 0) {
+    chronometer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (minutes == 0 && seconds == 0) {
         _changeRangeType();
-      } else if(seconds == 0) {
+      } else if (seconds == 0) {
         seconds = 59;
         minutes--;
       } else {
@@ -61,21 +61,33 @@ abstract class _PomodoroStore with Store {
   @action
   void incrementWorkingTime() {
     workingTime++;
+    if (isWorking()) {
+      restart();
+    }
   }
 
   @action
   void decrementWorkingTime() {
     workingTime--;
+     if (isWorking()) {
+      restart();
+    }
   }
 
   @action
   void incrementRestTime() {
     restTime++;
+     if (isResting()) {
+      restart();
+    }
   }
 
   @action
   void decrementRestTime() {
     restTime--;
+      if (isResting()) {
+      restart();
+    }
   }
 
   bool isWorking() {
